@@ -14,7 +14,7 @@ This project is also being used as **hands-on practice for the Microsoft AZ-104 
 
 ## Table of contents
 
-- [Architecture](docs/architecture.md)
+- [Architecture](Secure-Internal-Platform-Architecture-V1.png)
 - [Configuration](docs/configuration.md)
 - [Validation](docs/validation.md)
 

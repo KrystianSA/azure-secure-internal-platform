@@ -1,5 +1,7 @@
 # Azure Secure Internal Platform
 
+![Architecture](Architecture/Secure-Internal-Platform-Architecture-V2.png)
+
 ## Overview
 
 This project demonstrates how to design and build a **closed, internal-only platform in Microsoft Azure** — a small-scale simulation of a corporate network where access to resources is restricted exclusively to devices and identities that belong to that environment.

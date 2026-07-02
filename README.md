@@ -17,10 +17,7 @@ Small and medium-sized companies often deploy infrastructure manually through th
 This project builds an isolated Azure platform where no resource has a public IP. Administrative access to VMs is exclusively through Azure Bastion with Entra ID authentication. The Storage Account is accessible only through a Private Endpoint with a private IP inside the VNet. The entire infrastructure is defined as code (Terraform) and deployed through a CI/CD pipeline with a manual approval gate before every production change.
 
 **Measurable outcomes:**
-- New environment deployment time: from ~4 hours of clicking → `terraform apply` (minutes)
-- Manual steps: from ~30 → 0
 - Public exposure: VM and Storage without public IPs — zero attack vectors from the internet
-- Auditability: every infrastructure change has a PR, `terraform plan` and approval in Git history
 
 ---
 
@@ -36,9 +33,6 @@ This project builds an isolated Azure platform where no resource has a public IP
 | Private Endpoint + DNS | Storage accessible only inside VNet | `nslookup` returns private IP — traffic never leaves Azure backbone |
 | Entra ID Join | Login with organizational account, not local | Central IAM, MFA, Conditional Access — no reliance on local passwords |
 | NSG on snet-workload | RDP allowed only from AzureBastionSubnet | Zero direct VM access from outside |
-| Terraform remote state | Single source of truth for infrastructure | State locking in Blob Storage prevents conflicts on concurrent apply |
-| GitHub Actions + OIDC | CI/CD without Azure secrets in repository | Temporary tokens, zero long-lived credentials, zero log leakage |
-| Log Analytics + KQL | Anomaly detection: CPU spikes, failed logons | Monitoring as code — alert rules defined in Terraform |
 
 ---
 

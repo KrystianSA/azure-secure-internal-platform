@@ -14,7 +14,7 @@
 Small and medium-sized companies often deploy infrastructure manually through the Azure portal. Every new environment takes hours of clicking, is inconsistent, and prone to configuration errors. Lack of identity-based access control means VMs are exposed to the public internet on port 3389 — constantly scanned by botnets. Storage Accounts are often publicly accessible due to misconfigured network settings. No change is auditable — nobody knows who changed what and when.
 
 **Solution:**
-This project builds an isolated Azure platform where no resource has a public IP. Administrative access to VMs is exclusively through Azure Bastion with Entra ID authentication. The Storage Account is accessible only through a Private Endpoint with a private IP inside the VNet. The entire infrastructure is defined as code (Terraform) and deployed through a CI/CD pipeline with a manual approval gate before every production change.
+This project builds an isolated Azure platform where no resource has a public IP. Administrative access to VMs is exclusively through Azure Bastion with Entra ID authentication. The Storage Account is accessible only through a Private Endpoint with a private IP inside the VNet.
 
 **Measurable outcomes:**
 - Public exposure: VM and Storage without public IPs — zero attack vectors from the internet

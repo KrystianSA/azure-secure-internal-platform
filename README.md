@@ -1,36 +1,72 @@
 # Azure Secure Internal Platform
+> A secure, isolated cloud platform for corporate environments — zero public exposure, full DevOps cycle: manual provisioning → IaC (Terraform) → OS configuration (Ansible) → CI/CD (GitHub Actions).
 
-![Architecture](Architecture/Secure-Internal-Platform-Architecture-V2.png)
+---
 
-## Overview
-
-This project demonstrates how to design and build a **closed, internal-only platform in Microsoft Azure** — a small-scale simulation of a corporate network where access to resources is restricted exclusively to devices and identities that belong to that environment.
-
-The platform combines **network isolation** (Private Endpoints, NSGs, no public exposure) with **identity-based access control** (Microsoft Entra ID, RBAC), and is built in stages — starting with manual provisioning in the Azure Portal, then evolving into a fully automated Infrastructure-as-Code workflow.
-
-This project is also being used as **hands-on practice for the Microsoft AZ-104 (Azure Administrator Associate) certification**, deliberately covering its core domains: identity & governance, storage, compute, networking, and monitoring.
-
-## Table of contents
+## Table of content
 
 - [Architecture](Architecture/Secure-Internal-Platform-Architecture-V2.png)
 - [Configuration](docs/configuration.md)
 
-## Goal
+## Business Problem
 
-Design and implement a secure, identity-aware internal platform using:
+**Context:**
+Small and medium-sized companies often deploy infrastructure manually through the Azure portal. Every new environment takes hours of clicking, is inconsistent, and prone to configuration errors. Lack of identity-based access control means VMs are exposed to the public internet on port 3389 — constantly scanned by botnets. Storage Accounts are often publicly accessible due to misconfigured network settings. No change is auditable — nobody knows who changed what and when.
 
-- Network isolation — no public exposure of internal resources
-- Private access to PaaS services (Private Endpoint + Private DNS)
-- Identity-based access control via Microsoft Entra ID
-- Controlled administrative access (Azure Bastion, no public IPs on VMs)
-- Role-based access control (RBAC) at both the VM and storage level
-- Infrastructure as Code, configuration management, and CI/CD automation
+**Solution:**
+This project builds an isolated Azure platform where no resource has a public IP. Administrative access to VMs is exclusively through Azure Bastion with Entra ID authentication. The Storage Account is accessible only through a Private Endpoint with a private IP inside the VNet. The entire infrastructure is defined as code (Terraform) and deployed through a CI/CD pipeline with a manual approval gate before every production change.
 
-## Roadmap
+**Measurable outcomes:**
+- New environment deployment time: from ~4 hours of clicking → `terraform apply` (minutes)
+- Manual steps: from ~30 → 0
+- Public exposure: VM and Storage without public IPs — zero attack vectors from the internet
+- Auditability: every infrastructure change has a PR, `terraform plan` and approval in Git history
 
-| Phase | Focus | Status |
+---
+
+## Architecture
+
+![Architecture](Architecture/Secure-Internal-Platform-Architecture-V2.png)
+
+**Components and their role:**
+
+| Component | Role in project | Why this approach |
 |---|---|---|
-| **Phase 1** | Manual foundation in the Azure Portal — VNet, Storage + Private Endpoint, Entra-joined Windows VM, Azure Bastion, RBAC validation, basic monitoring
-| **Phase 2** | Import existing resources into Terraform, then extend the platform purely through code (Log Analytics, alerts, Azure Policy, VNet peering experiment)
-| **Phase 3** | In-guest configuration with Ansible — hardening, software baseline, audit logging
-| **Phase 4** | CI/CD pipeline with GitHub Actions — automated `terraform plan`/`apply` via OIDC federation
+| Azure Bastion (Standard) | Secure RDP access without public IP | Standard SKU required for native Entra ID login |
+| Private Endpoint + DNS | Storage accessible only inside VNet | `nslookup` returns private IP — traffic never leaves Azure backbone |
+| Entra ID Join | Login with organizational account, not local | Central IAM, MFA, Conditional Access — no reliance on local passwords |
+| NSG on snet-workload | RDP allowed only from AzureBastionSubnet | Zero direct VM access from outside |
+| Terraform remote state | Single source of truth for infrastructure | State locking in Blob Storage prevents conflicts on concurrent apply |
+| GitHub Actions + OIDC | CI/CD without Azure secrets in repository | Temporary tokens, zero long-lived credentials, zero log leakage |
+| Log Analytics + KQL | Anomaly detection: CPU spikes, failed logons | Monitoring as code — alert rules defined in Terraform |
+
+---
+
+## Key Technical Decisions
+
+### Why Private Endpoint for Storage instead of Service Endpoint?
+Service Endpoint optimizes the network route, but Storage still has a public IP — someone from outside can try to connect (and succeed if the firewall is misconfigured). Private Endpoint gives Storage a private IP inside the VNet: traffic never goes to the internet, and a misconfigured firewall won't open external access. Private DNS Zone automatically resolves `*.blob.core.windows.net` to the private IP — without any manual DNS configuration on the VM.
+
+### Why NSG at subnet level instead of NIC level?
+An NSG at the subnet level applies to all VMs in that subnet — adding a new VM doesn't require manual NSG configuration. NIC-level NSG would be more granular, but in this project all VMs in snet-workload have the same security requirements.
+
+---
+
+## Tech Stack
+
+| Category | Technology |
+|---|---|
+| Cloud | Microsoft Azure |
+
+---
+
+## How to Run the Project (Quickstart)
+
+---
+
+## Author
+
+**Krystian Sąsiadek**
+[LinkedIn](https://linkedin.com/in/krystiansasiadek) · [GitHub](https://github.com/KrystianSA)
+
+> *Project built as hands-on preparation for the AZ-104 exam and as portfolio material demonstrating a full DevOps cycle: provisioning → IaC → OS configuration → CI/CD. Every technical decision is justified by a business reason — not "because the tutorial said so", but "because it solves a specific problem".*

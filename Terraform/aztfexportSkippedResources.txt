@@ -1,0 +1,9 @@
+Following resources are marked to be skipped:
+
+- /subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net/SOA/@
+- /subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Storage/storageAccounts/sasecinternalplatform
+- /subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Storage/storageAccounts/sasecinternalplatform/blobServices/default
+- /subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Storage/storageAccounts/sasecinternalplatform/fileServices/default
+- /subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Storage/storageAccounts/sasecinternalplatform/privateEndpointConnections/sasecinternalplatform.d0e4931d-8af9-44fa-a590-6187026e3e5b
+- /subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Storage/storageAccounts/sasecinternalplatform/queueServices/default
+- /subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Storage/storageAccounts/sasecinternalplatform/tableServices/default

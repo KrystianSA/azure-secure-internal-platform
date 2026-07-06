@@ -1,0 +1,97 @@
+{
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform",
+		"resource_type": "azurerm_resource_group",
+		"resource_name": "res-0"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Compute/virtualMachines/vm-workstation1": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Compute/virtualMachines/vm-workstation1",
+		"resource_type": "azurerm_windows_virtual_machine",
+		"resource_name": "res-1"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Compute/virtualMachines/vm-workstation1/extensions/AADLoginForWindows": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Compute/virtualMachines/vm-workstation1/extensions/AADLoginForWindows",
+		"resource_type": "azurerm_virtual_machine_extension",
+		"resource_name": "res-2"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/bastionHosts/vn-secure-internal-platform-Bastion": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/bastionHosts/vn-secure-internal-platform-Bastion",
+		"resource_type": "azurerm_bastion_host",
+		"resource_name": "res-3"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkInterfaces/vm-workstation1699": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkInterfaces/vm-workstation1699",
+		"resource_type": "azurerm_network_interface",
+		"resource_name": "res-4"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkInterfaces/vm-workstation1699/networkSecurityGroups/L3N1YnNjcmlwdGlvbnMvZDM4ZTUxMjItZDE0Ni00ZmIzLWIxY2QtYjRiNTQ0OWUzMmM0L3Jlc291cmNlR3JvdXBzL3JnLXNlY3VyZS1pbnRlcm5hbC1wbGF0Zm9ybS9wcm92aWRlcnMvTWljcm9zb2Z0Lk5ldHdvcmsvbmV0d29ya1NlY3VyaXR5R3JvdXBzL3ZtLXdvcmtzdGF0aW9uMS1uc2c=": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkInterfaces/vm-workstation1699|/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkSecurityGroups/vm-workstation1-nsg",
+		"resource_type": "azurerm_network_interface_security_group_association",
+		"resource_name": "res-5"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkSecurityGroups/vm-workstation1-nsg": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkSecurityGroups/vm-workstation1-nsg",
+		"resource_type": "azurerm_network_security_group",
+		"resource_name": "res-6"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkSecurityGroups/vm-workstation1-nsg/securityRules/AllowRDPFromBastion": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkSecurityGroups/vm-workstation1-nsg/securityRules/AllowRDPFromBastion",
+		"resource_type": "azurerm_network_security_rule",
+		"resource_name": "res-7"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkSecurityGroups/vm-workstation1-nsg/securityRules/DenyAllVnetInbound": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/networkSecurityGroups/vm-workstation1-nsg/securityRules/DenyAllVnetInbound",
+		"resource_type": "azurerm_network_security_rule",
+		"resource_name": "res-8"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net",
+		"resource_type": "azurerm_private_dns_zone",
+		"resource_name": "res-9"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net/A/sasecinternalplatform": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net/A/sasecinternalplatform",
+		"resource_type": "azurerm_private_dns_a_record",
+		"resource_name": "res-10"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net/virtualNetworkLinks/otskfqfi7uhq2": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net/virtualNetworkLinks/otskfqfi7uhq2",
+		"resource_type": "azurerm_private_dns_zone_virtual_network_link",
+		"resource_name": "res-12"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/privateEndpoints/pe-secure-internal-platform": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/privateEndpoints/pe-secure-internal-platform",
+		"resource_type": "azurerm_private_endpoint",
+		"resource_name": "res-13"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/publicIPAddresses/vn-secure-internal-platform-bastion": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/publicIPAddresses/vn-secure-internal-platform-bastion",
+		"resource_type": "azurerm_public_ip",
+		"resource_name": "res-14"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/virtualNetworks/vn-secure-internal-platform": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/virtualNetworks/vn-secure-internal-platform",
+		"resource_type": "azurerm_virtual_network",
+		"resource_name": "res-15"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/virtualNetworks/vn-secure-internal-platform/subnets/AzureBastionSubnet": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/virtualNetworks/vn-secure-internal-platform/subnets/AzureBastionSubnet",
+		"resource_type": "azurerm_subnet",
+		"resource_name": "res-16"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/virtualNetworks/vn-secure-internal-platform/subnets/snet-pe": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/virtualNetworks/vn-secure-internal-platform/subnets/snet-pe",
+		"resource_type": "azurerm_subnet",
+		"resource_name": "res-17"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/virtualNetworks/vn-secure-internal-platform/subnets/snet-vm": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Network/virtualNetworks/vn-secure-internal-platform/subnets/snet-vm",
+		"resource_type": "azurerm_subnet",
+		"resource_name": "res-18"
+	},
+	"/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Storage/storageAccounts/sasecinternalplatform/blobServices/default/containers/test": {
+		"resource_id": "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Storage/storageAccounts/sasecinternalplatform/blobServices/default/containers/test",
+		"resource_type": "azurerm_storage_container",
+		"resource_name": "res-21"
+	}
+}

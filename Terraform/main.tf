@@ -230,3 +230,13 @@ resource "azurerm_subnet" "vm_subnet" {
     azurerm_virtual_network.virtual_network,
   ]
 }
+
+resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
+  location            = var.location
+  name                = "law-secure-internal-platform"
+  resource_group_name = azurerm_resource_group.resource_group.name
+  tags = {
+    environment = "lab"
+    project     = "secure-internal-platform"
+  }
+}

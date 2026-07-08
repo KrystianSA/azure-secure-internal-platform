@@ -1,8 +1,16 @@
-# main.tf
-resource "azurerm_storage_account" "main" {
+resource "azurerm_resource_group" "resource_group" {
+  location = var.location
+  name     = "rg-secure-internal-platform"
+  tags = {
+    environment = "lab"
+    project     = "secure-internal-platform"
+  }
+}
+
+resource "azurerm_storage_account" "storage_account" {
   name                            = "sasecinternalplatform"
-  resource_group_name             = "rg-secure-internal-platform"
-  location                        = "polandcentral"
+  resource_group_name             = azurerm_resource_group.resource_group.name
+  location                        = var.location
   account_tier                    = "Standard"
   account_replication_type        = "LRS"
   allow_nested_items_to_be_public = false
@@ -17,20 +25,11 @@ resource "azurerm_storage_account" "main" {
   }
 }
 
-resource "azurerm_resource_group" "resource_group" {
-  location = "polandcentral"
-  name     = "rg-secure-internal-platform"
-  tags = {
-    environment = "lab"
-    project     = "secure-internal-platform"
-  }
-}
-
 resource "azurerm_windows_virtual_machine" "windows_vm_workstation" {
   admin_password        = var.admin_password
   admin_username        = "adminKrystianSa"
   license_type          = "Windows_Client"
-  location              = "polandcentral"
+  location              = var.location
   name                  = "vm-workstation1"
   network_interface_ids = [azurerm_network_interface.vm_nic.id]
   #  os_managed_disk_id    = "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/RG-SECURE-INTERNAL-PLATFORM/providers/Microsoft.Compute/disks/vm-workstation1_OsDisk_1_8ed303180768498fbd1849e5243d2db3"
@@ -59,7 +58,7 @@ resource "azurerm_windows_virtual_machine" "windows_vm_workstation" {
   }
   lifecycle {
     ignore_changes = [
-      admin_password # ← Terraform nie będzie zmieniał hasła przy każdym apply!
+      admin_password
     ]
   }
 }
@@ -77,7 +76,7 @@ resource "azurerm_virtual_machine_extension" "aad_login_extension" {
 }
 
 resource "azurerm_bastion_host" "bastion_host" {
-  location            = "polandcentral"
+  location            = var.location
   name                = "vn-secure-internal-platform-Bastion"
   resource_group_name = azurerm_resource_group.resource_group.name
   sku                 = "Standard"
@@ -89,7 +88,7 @@ resource "azurerm_bastion_host" "bastion_host" {
 }
 
 resource "azurerm_network_interface" "vm_nic" {
-  location            = "polandcentral"
+  location            = var.location
   name                = "vm-workstation1699"
   resource_group_name = azurerm_resource_group.resource_group.name
   ip_configuration {
@@ -105,7 +104,7 @@ resource "azurerm_network_interface_security_group_association" "vm_nic_nsg_asso
 }
 
 resource "azurerm_network_security_group" "vm_nsg" {
-  location            = "polandcentral"
+  location            = var.location
   name                = "vm-workstation1-nsg"
   resource_group_name = azurerm_resource_group.resource_group.name
 }
@@ -171,7 +170,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_vnet_link"
 }
 
 resource "azurerm_private_endpoint" "storage_private_endpoint" {
-  location            = "polandcentral"
+  location            = var.location
   name                = "pe-secure-internal-platform"
   resource_group_name = azurerm_resource_group.resource_group.name
   subnet_id           = azurerm_subnet.private_endpoint_subnet.id
@@ -185,14 +184,14 @@ resource "azurerm_private_endpoint" "storage_private_endpoint" {
 
 resource "azurerm_public_ip" "bastion_public_ip" {
   allocation_method   = "Static"
-  location            = "polandcentral"
+  location            = var.location
   name                = "vn-secure-internal-platform-bastion"
   resource_group_name = azurerm_resource_group.resource_group.name
 }
 
 resource "azurerm_virtual_network" "virtual_network" {
   address_space       = ["10.0.0.0/16"]
-  location            = "polandcentral"
+  location            = var.location
   name                = "vn-secure-internal-platform"
   resource_group_name = azurerm_resource_group.resource_group.name
   tags = {
@@ -231,16 +230,3 @@ resource "azurerm_subnet" "vm_subnet" {
     azurerm_virtual_network.virtual_network,
   ]
 }
-
-resource "azurerm_storage_container" "storage_container" {
-  name               = "test"
-  storage_account_id = "/subscriptions/d38e5122-d146-4fb3-b1cd-b4b5449e32c4/resourceGroups/rg-secure-internal-platform/providers/Microsoft.Storage/storageAccounts/sasecinternalplatform"
-}
-
-#resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
-#  location            = "polandcentral"
-#  name                = "law-secure-internal-platform"
-#  resource_group_name = azurerm_resource_group.resource_group.name
-#  sku                 = "PerGB2018"
-#  retention_in_days   = 30
-#}

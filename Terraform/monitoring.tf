@@ -18,3 +18,13 @@ resource "azurerm_monitor_diagnostic_setting" "diagnostic_setting_storage_accoun
   }
 
 }
+
+resource "azurerm_monitor_diagnostic_setting" "bastion_diagnostic_setting" {
+  name                       = "ds-secure-internal-platform"
+  target_resource_id         = azurerm_bastion_host.bastion_host.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics_workspace.id
+
+  enabled_log {
+    category = "BastionAuditLogs"
+  }
+}

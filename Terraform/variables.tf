@@ -14,3 +14,14 @@ variable "location" {
   type        = string
   default     = "polandcentral"
 }
+
+variable "krystian_object_id" {
+  description = "The object ID of the user to assign the role to."
+  type        = string
+  sensitive   = true
+}
+
+variable "tenant_id" {
+  description = "The tenant ID for the Azure Active Directory."
+  type        = string
+}

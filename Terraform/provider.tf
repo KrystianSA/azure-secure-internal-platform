@@ -8,3 +8,7 @@ provider "azurerm" {
   use_cli                         = true
   storage_use_azuread             = true
 }
+
+provider "azuread" {
+  tenant_id = var.tenant_id
+}

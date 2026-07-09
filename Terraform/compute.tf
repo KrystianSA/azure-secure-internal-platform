@@ -62,3 +62,9 @@ resource "azurerm_network_interface_security_group_association" "vm_nic_nsg_asso
   network_interface_id      = azurerm_network_interface.vm_nic.id
   network_security_group_id = azurerm_network_security_group.vm_nsg.id
 }
+
+resource "azurerm_role_assignment" "vm_role_assignment" {
+  scope                = azurerm_windows_virtual_machine.windows_vm_workstation.id
+  role_definition_name = "Virtual Machine Administrator Login"
+  principal_id         = data.azuread_user.Krystian.object_id
+}

@@ -5,8 +5,8 @@ resource "azurerm_windows_virtual_machine" "windows_vm_workstation" {
   location              = var.location
   name                  = "vm-workstation1"
   network_interface_ids = [azurerm_network_interface.vm_nic.id]
-  resource_group_name = azurerm_resource_group.resource_group.name
-  size                = "Standard_B2ts_v2"
+  resource_group_name   = module.rg_secure_internal_platform.resource_group_name
+  size                  = "Standard_B2ts_v2"
   tags = {
     environment = "lab"
     project     = "secure-internal-platform"
@@ -50,7 +50,7 @@ resource "azurerm_virtual_machine_extension" "aad_login_extension" {
 resource "azurerm_network_interface" "vm_nic" {
   location            = var.location
   name                = "vm-workstation1699"
-  resource_group_name = azurerm_resource_group.resource_group.name
+  resource_group_name = module.rg_secure_internal_platform.resource_group_name
   ip_configuration {
     name                          = "ipconfig1"
     private_ip_address_allocation = "Dynamic"

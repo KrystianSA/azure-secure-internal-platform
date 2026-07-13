@@ -25,3 +25,15 @@ variable "tenant_id" {
   description = "The tenant ID for the Azure Active Directory."
   type        = string
 }
+
+variable "environment" {
+  description = "The environment for the resources."
+  type        = string
+  default     = "lab"
+}
+
+variable "project" {
+  description = "The project name for the resources."
+  type        = string
+  default     = "secure-internal-platform"
+}

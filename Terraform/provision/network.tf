@@ -1,7 +1,7 @@
 resource "azurerm_bastion_host" "bastion_host" {
   location            = var.location
   name                = "vn-secure-internal-platform-Bastion"
-  resource_group_name = azurerm_resource_group.resource_group.name
+  resource_group_name = module.rg_secure_internal_platform.resource_group_name
   sku                 = "Standard"
   ip_configuration {
     name                 = "IpConf"
@@ -13,7 +13,7 @@ resource "azurerm_bastion_host" "bastion_host" {
 resource "azurerm_network_security_group" "vm_nsg" {
   location            = var.location
   name                = "vm-workstation1-nsg"
-  resource_group_name = azurerm_resource_group.resource_group.name
+  resource_group_name = module.rg_secure_internal_platform.resource_group_name
 }
 
 resource "azurerm_network_security_rule" "allow_rdp_from_bastion_rule" {
@@ -25,7 +25,7 @@ resource "azurerm_network_security_rule" "allow_rdp_from_bastion_rule" {
   network_security_group_name = "vm-workstation1-nsg"
   priority                    = 100
   protocol                    = "Tcp"
-  resource_group_name         = azurerm_resource_group.resource_group.name
+  resource_group_name         = module.rg_secure_internal_platform.resource_group_name
   source_address_prefix       = "10.0.1.0/26"
   source_port_range           = "*"
   depends_on = [
@@ -42,7 +42,7 @@ resource "azurerm_network_security_rule" "deny_all_vnet_inbound_rule" {
   network_security_group_name = "vm-workstation1-nsg"
   priority                    = 200
   protocol                    = "Tcp"
-  resource_group_name         = azurerm_resource_group.resource_group.name
+  resource_group_name         = module.rg_secure_internal_platform.resource_group_name
   source_address_prefix       = "*"
   source_port_range           = "*"
   depends_on = [
@@ -52,13 +52,13 @@ resource "azurerm_network_security_rule" "deny_all_vnet_inbound_rule" {
 
 resource "azurerm_private_dns_zone" "private_dns_zone" {
   name                = "privatelink.blob.core.windows.net"
-  resource_group_name = azurerm_resource_group.resource_group.name
+  resource_group_name = module.rg_secure_internal_platform.resource_group_name
 }
 
 resource "azurerm_private_dns_a_record" "private_dns_a_record" {
   name                = "sasecinternalplatform"
   records             = ["10.0.2.4"]
-  resource_group_name = azurerm_resource_group.resource_group.name
+  resource_group_name = module.rg_secure_internal_platform.resource_group_name
   ttl                 = 3600
   zone_name           = "privatelink.blob.core.windows.net"
   depends_on = [
@@ -69,7 +69,7 @@ resource "azurerm_private_dns_a_record" "private_dns_a_record" {
 resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_vnet_link" {
   name                  = "otskfqfi7uhq2"
   private_dns_zone_name = "privatelink.blob.core.windows.net"
-  resource_group_name   = azurerm_resource_group.resource_group.name
+  resource_group_name   = module.rg_secure_internal_platform.resource_group_name
   virtual_network_id    = azurerm_virtual_network.virtual_network.id
   depends_on = [
     azurerm_private_dns_zone.private_dns_zone,
@@ -79,7 +79,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_vnet_link"
 resource "azurerm_private_endpoint" "storage_private_endpoint" {
   location            = var.location
   name                = "pe-secure-internal-platform"
-  resource_group_name = azurerm_resource_group.resource_group.name
+  resource_group_name = module.rg_secure_internal_platform.resource_group_name
   subnet_id           = azurerm_subnet.private_endpoint_subnet.id
   private_service_connection {
     is_manual_connection           = false
@@ -93,14 +93,14 @@ resource "azurerm_public_ip" "bastion_public_ip" {
   allocation_method   = "Static"
   location            = var.location
   name                = "vn-secure-internal-platform-bastion"
-  resource_group_name = azurerm_resource_group.resource_group.name
+  resource_group_name = module.rg_secure_internal_platform.resource_group_name
 }
 
 resource "azurerm_virtual_network" "virtual_network" {
   address_space       = ["10.0.0.0/16"]
   location            = var.location
   name                = "vn-secure-internal-platform"
-  resource_group_name = azurerm_resource_group.resource_group.name
+  resource_group_name = module.rg_secure_internal_platform.resource_group_name
   tags = {
     environment = "lab"
     project     = "secure-internal-platform"
@@ -110,7 +110,7 @@ resource "azurerm_virtual_network" "virtual_network" {
 resource "azurerm_subnet" "bastion_subnet" {
   address_prefixes     = ["10.0.1.0/26"]
   name                 = "AzureBastionSubnet"
-  resource_group_name  = azurerm_resource_group.resource_group.name
+  resource_group_name  = module.rg_secure_internal_platform.resource_group_name
   virtual_network_name = "vn-secure-internal-platform"
   depends_on = [
     azurerm_virtual_network.virtual_network,
@@ -121,7 +121,7 @@ resource "azurerm_subnet" "private_endpoint_subnet" {
   address_prefixes                = ["10.0.2.0/24"]
   default_outbound_access_enabled = false
   name                            = "snet-pe"
-  resource_group_name             = azurerm_resource_group.resource_group.name
+  resource_group_name             = module.rg_secure_internal_platform.resource_group_name
   virtual_network_name            = "vn-secure-internal-platform"
   depends_on = [
     azurerm_virtual_network.virtual_network,
@@ -131,7 +131,7 @@ resource "azurerm_subnet" "private_endpoint_subnet" {
 resource "azurerm_subnet" "vm_subnet" {
   address_prefixes     = ["10.0.0.0/24"]
   name                 = "snet-vm"
-  resource_group_name  = azurerm_resource_group.resource_group.name
+  resource_group_name  = module.rg_secure_internal_platform.resource_group_name
   virtual_network_name = "vn-secure-internal-platform"
   depends_on = [
     azurerm_virtual_network.virtual_network,

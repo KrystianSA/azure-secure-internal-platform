@@ -6,4 +6,8 @@ module "naming-convention" {
 resource "azurerm_resource_group" "resource_group" {
   name     = module.naming-convention.resources.resource_group_name
   location = var.location
+  tags = {
+    environment = var.environment
+    project     = var.project
+  }
 }

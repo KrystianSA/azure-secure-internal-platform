@@ -1,7 +1,7 @@
 resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
   location            = var.location
   name                = "law-secure-internal-platform"
-  resource_group_name = azurerm_resource_group.resource_group.name
+  resource_group_name = module.rg_secure_internal_platform.resource_group_name
   tags = {
     environment = "lab"
     project     = "secure-internal-platform"
@@ -27,4 +27,10 @@ resource "azurerm_monitor_diagnostic_setting" "bastion_diagnostic_setting" {
   enabled_log {
     category = "BastionAuditLogs"
   }
+}
+
+resource "azurerm_network_watcher" "network_watcher" {
+  location            = var.location
+  name                = "NetworkWatcher_polandcentral"
+  resource_group_name = azurerm_resource_group.network_watcher_rg.name
 }

@@ -1,6 +1,6 @@
 resource "azurerm_storage_account" "storage_account" {
   name                            = "sasecinternalplatform"
-  resource_group_name             = azurerm_resource_group.resource_group.name
+  resource_group_name             = module.rg_secure_internal_platform.resource_group_name
   location                        = var.location
   account_tier                    = "Standard"
   account_replication_type        = "LRS"

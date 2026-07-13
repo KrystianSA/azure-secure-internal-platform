@@ -29,6 +29,16 @@ resource "azurerm_monitor_diagnostic_setting" "bastion_diagnostic_setting" {
   }
 }
 
+resource "azurerm_monitor_diagnostic_setting" "nsg_diagnostic_setting" {
+  name                       = "ds-secure-internal-platform"
+  target_resource_id         = azurerm_network_security_group.vm_nsg.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics_workspace.id
+
+  enabled_log {
+    category_group = "AllLogs"
+  }
+}
+
 resource "azurerm_network_watcher" "network_watcher" {
   location            = var.location
   name                = "NetworkWatcher_polandcentral"

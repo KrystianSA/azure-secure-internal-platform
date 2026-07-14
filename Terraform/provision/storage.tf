@@ -17,7 +17,7 @@ resource "azurerm_storage_account" "storage_account_private_files" {
 }
 
 resource "azurerm_storage_account" "storage_account_flow_logs" {
-  name                       = "saflowlogs"
+  name                       = "savnflowlogs"
   resource_group_name        = module.rg_secure_internal_platform.resource_group_name
   location                   = var.location
   account_tier               = "Standard"

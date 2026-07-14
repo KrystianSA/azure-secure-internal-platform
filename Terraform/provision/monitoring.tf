@@ -10,7 +10,7 @@ resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
 
 resource "azurerm_monitor_diagnostic_setting" "diagnostic_setting_storage_account" {
   name                       = "ds-secure-internal-platform"
-  target_resource_id         = "${azurerm_storage_account.storage_account.id}/blobServices/default/"
+  target_resource_id         = "${azurerm_storage_account.storage_account_private_files.id}/blobServices/default/"
   log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics_workspace.id
 
   enabled_log {

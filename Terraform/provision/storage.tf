@@ -1,4 +1,4 @@
-resource "azurerm_storage_account" "storage_account" {
+resource "azurerm_storage_account" "storage_account_private_files" {
   name                            = "sasecinternalplatform"
   resource_group_name             = module.rg_secure_internal_platform.resource_group_name
   location                        = var.location
@@ -16,3 +16,12 @@ resource "azurerm_storage_account" "storage_account" {
   }
 }
 
+resource "azurerm_storage_account" "storage_account_flow_logs" {
+  name                       = "saflowlogs"
+  resource_group_name        = module.rg_secure_internal_platform.resource_group_name
+  location                   = var.location
+  account_tier               = "Standard"
+  account_kind               = "StorageV2"
+  account_replication_type   = "LRS"
+  https_traffic_only_enabled = true
+}

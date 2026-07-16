@@ -68,3 +68,12 @@ resource "azurerm_role_assignment" "vm_role_assignment" {
   role_definition_name = "Virtual Machine Administrator Login"
   principal_id         = data.azuread_user.Krystian.object_id
 }
+
+resource "azurerm_virtual_machine_extension" "azure_monitor_agent_extension" {
+  name                       = "AzureMonitorWindowsAgent"
+  virtual_machine_id         = azurerm_windows_virtual_machine.windows_vm_workstation.id
+  publisher                  = "Microsoft.Azure.Monitor"
+  type                       = "AzureMonitorWindowsAgent"
+  type_handler_version       = "1.43"
+  auto_upgrade_minor_version = true
+}

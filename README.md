@@ -5,7 +5,7 @@
 
 ## Table of content
 
-- [Architecture](Architecture/Secure-Internal-Platform-Architecture-V2.png)
+- [Architecture](Architecture/Secure-Internal-Platform-Architecture-V3.png)
 - [Configuration](docs/configuration.md)
 
 ## Business Problem
@@ -23,7 +23,7 @@ This project builds an isolated Azure platform where no resource has a public IP
 
 ## Architecture
 
-![Architecture](Architecture/Secure-Internal-Platform-Architecture-V2.png)
+![Architecture](Architecture/Secure-Internal-Platform-Architecture-V3.png)
 
 **Components and their role:**
 

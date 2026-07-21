@@ -1,5 +1,5 @@
 module "naming-convention" {
-  source              = "../../naming-convention"
+  source              = "../naming-convention/resource-groups"
   resource_group_name = var.resource_group_name
 }
 

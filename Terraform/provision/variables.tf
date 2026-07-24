@@ -37,3 +37,14 @@ variable "project" {
   type        = string
   default     = "secure-internal-platform"
 }
+
+variable "ssh_public_key" {
+  description = "Contents of ~/.ssh/azure_tf_key.pub"
+  type        = string
+  default     = "~/.ssh/azure_tf_key.pub"
+}
+
+variable "private_local_ip" {
+  description = "Private local IP address for the VM"
+  type        = string
+}

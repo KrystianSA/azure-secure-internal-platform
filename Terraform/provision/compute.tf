@@ -77,3 +77,10 @@ resource "azurerm_virtual_machine_extension" "azure_monitor_agent_extension" {
   type_handler_version       = "1.43"
   auto_upgrade_minor_version = true
 }
+
+resource "azurerm_ssh_public_key" "vm_ssh_key" {
+  name                = "vm-ssh-key"
+  resource_group_name = module.rg_secure_internal_platform.resource_group_name
+  location            = var.location
+  public_key          = file(var.ssh_public_key)
+}

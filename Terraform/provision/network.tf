@@ -16,6 +16,23 @@ resource "azurerm_network_security_group" "vm_nsg" {
   resource_group_name = module.rg_secure_internal_platform.resource_group_name
 }
 
+resource "azurerm_network_security_rule" "allow_ssh_from_local_machine_rule" {
+  access                      = "Allow"
+  destination_address_prefix  = "*"
+  destination_port_range      = "22"
+  direction                   = "Inbound"
+  name                        = "AllowSSHFromLocalMachine"
+  network_security_group_name = "vm-workstation1-nsg"
+  priority                    = 110
+  protocol                    = "Tcp"
+  resource_group_name         = module.rg_secure_internal_platform.resource_group_name
+  source_address_prefix       = var.private_local_ip
+  source_port_range           = "*"
+  depends_on = [
+    azurerm_network_security_group.vm_nsg,
+  ]
+}
+
 resource "azurerm_network_security_rule" "allow_rdp_from_bastion_rule" {
   access                      = "Allow"
   destination_address_prefix  = "*"

@@ -48,3 +48,8 @@ variable "private_local_ip" {
   description = "Private local IP address for the VM"
   type        = string
 }
+
+variable "alert_email" {
+  description = "Email address to receive alerts"
+  type        = string
+}

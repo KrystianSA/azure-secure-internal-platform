@@ -1,0 +1,25 @@
+data "azurerm_policy_definition_built_in" "not_allowed_resource_types" {
+  display_name = "Not allowed resource types"
+}
+
+resource "azurerm_resource_group_policy_assignment" "not_allowed_public_ip" {
+  name                 = "not_allowed_public_ip"
+  resource_group_id    = module.rg_secure_internal_platform.resource_group_id
+  policy_definition_id = data.azurerm_policy_definition_built_in.not_allowed_resource_types.id
+  description          = "This policy denies the creation of public IP addresses in the resource group."
+
+  parameters = <<PARAMS
+{
+  "version": "1.0.0",
+  "resourceTypes": {
+    "value": [
+      "Microsoft.Network/publicIPAddresses"
+    ]
+  }
+}
+PARAMS
+
+  non_compliance_message {
+    content = "Creation of public IP addresses is not allowed in this resource group."
+  }
+}

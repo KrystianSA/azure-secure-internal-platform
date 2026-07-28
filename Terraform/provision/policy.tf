@@ -6,8 +6,7 @@ resource "azurerm_resource_group_policy_assignment" "not_allowed_public_ip" {
 
   parameters = <<PARAMS
 {
-  "version": "1.0.0",
-  "resourceTypes": {
+  "listOfResourceTypesNotAllowed": {
     "value": [
       "Microsoft.Network/publicIPAddresses"
     ]

@@ -1,0 +1,36 @@
+{
+    "mode": "Indexed",
+    "displayName": "Deny Open Ports Policy",
+    "description": "",
+    "parameters": {
+        "effectType": {
+            "type": "String",
+            "defaultValue": "deny",
+            "metadata": {
+                "description": "The effect of the policy",
+                "displayName": "Effect"
+            }
+        }
+    },
+    "policyRule": {
+        "if": {
+            "allOf": [
+                {
+                    "field": "type",
+                    "equals": "Microsoft.Network/networkSecurityGroups/securityRules"
+                },
+                {
+                    "field": "Microsoft.Network/networkSecurityGroups/securityRules/direction",
+                    "equals": "Inbound"
+                },
+                {
+                    "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                    "equals": "*"
+                }
+            ]
+        },
+        "then": {
+            "effect": "[parameters('effectType')]"
+        }
+    }
+}

@@ -40,14 +40,10 @@ resource "azurerm_resource_group_policy_assignment" "not_allowed_inbound_traffic
   policy_definition_id = azurerm_policy_definition.deny_open_ports_policy.id
 }
 
-data "azurerm_bastion_host" "bastion_rg_secure_internal_platform_id" {
-  name                = azurerm_bastion_host.bastion_host.name
-  resource_group_name = module.rg_secure_internal_platform.resource_group_name
-}
-
 resource "azurerm_resource_policy_exemption" "bastion_not_allowed_public_ip_policy_exemption" {
   name                 = "bastion_not_allowed_public_ip_policy_exemption"
-  resource_id          = data.azurerm_bastion_host.bastion_rg_secure_internal_platform_id.id
+  resource_id          = azurerm_public_ip.bastion_public_ip.id
   policy_assignment_id = azurerm_resource_group_policy_assignment.not_allowed_public_ip.id
   exemption_category   = "Waiver"
+  description          = "The Bastion Standard SKU requires a dedicated Public IP by design — a persistent, intentional exception."
 }
